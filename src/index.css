@@ -161,6 +161,7 @@ img {
 
 .Overlay {
   position: fixed;
+
   top: 0;
   left: 0;
   width: 100vw;
@@ -204,4 +205,9 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+}
+
+.loader {
+  margin-left: auto;
+  margin-right: auto;
 }

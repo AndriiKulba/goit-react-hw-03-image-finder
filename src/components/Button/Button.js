@@ -4,6 +4,10 @@ import s from './Button.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const Button = () => {
-    return <div></div>;
-}
+  return (
+    <button type="button" className={s.Button}>
+      Load more
+    </button>
+  );
+};
 export default Button;
