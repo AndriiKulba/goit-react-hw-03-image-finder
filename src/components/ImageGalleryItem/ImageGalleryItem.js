@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const ImageGalleryItem = ({ Images, toggleModal }) => {
+const ImageGalleryItem = ({ Images, getLargeImg }) => {
   return (
     <>
-      {Images.map(({ id, webformatURL, largeImageURL }) => {
+      {Images.map(Image => {
         return (
-          <li key={uuidv4()} className="ImageGalleryItem">
+          <li key={Image.id} className="ImageGalleryItem">
             <img
-              src={webformatURL}
-              alt={id}
+              src={Image.webformatURL}
+              alt={Image.tag}
               className="ImageGalleryItem-image"
-              onClick={toggleModal}
+              onClick={() => getLargeImg(Image)}
             />
           </li>
         );

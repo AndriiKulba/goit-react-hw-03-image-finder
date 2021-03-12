@@ -1,31 +1,48 @@
 import './App.css';
 import React, { Component } from 'react';
+import Api from './components/API/Api';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
 import Loader from 'react-loader-spinner';
 import Modal from './components/Modal';
 import Button from './components/Button';
-import ArrayImages from './db/arrayImage.json';
+
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
-  state = { showModal: false, isLoading: false };
+  state = {
+    arrayImages: [],
+    activeImage: '',
+    showModal: false,
+    isLoading: true,
+  };
+  getLargeImg = e => {
+    this.setState({ activeImage: e });
+    this.toggleModal();
+  };
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    Api.FetchImages()
+      .then(data => this.setState({ arrayImages: data, isLoading: false }))
+      .catch(error => console.log(error))
+      .finally(() => this.setState({ isLoading: false }));
+  }
   render() {
-    const { showModal, isLoading } = this.state;
+    const { arrayImages, activeImage, showModal, isLoading } = this.state;
     return (
       <div className="App">
         <Searchbar />
         <ImageGallery>
           <ImageGalleryItem
-            Images={ArrayImages}
-            toggleModal={this.toggleModal}
+            Images={arrayImages}
+            getLargeImg={this.getLargeImg}
           />
         </ImageGallery>
-        <Button />
+        {!isLoading && <Button />}
         {isLoading && (
           <Loader
             type="BallTriangle"
@@ -37,7 +54,9 @@ class App extends Component {
           />
         )}
 
-        {showModal && <Modal toggleModal={this.toggleModal} />}
+        {showModal && (
+          <Modal activeImage={activeImage} toggleModal={this.toggleModal} />
+        )}
       </div>
     );
   }

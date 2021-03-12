@@ -21,14 +21,11 @@ class Modal extends Component {
     }
   };
   render() {
-    const { toggleModal } = this.props;
+    const { activeImage, toggleModal } = this.props;
     return (
       <div className="Overlay" onClick={this.OnBackdropClick}>
         <div className="Modal">
-          <img
-            src="https://pixabay.com/get/gd0228ebbee6cb0bde8ff5a889a899deb837c6544114b70034e2e4a752e7de0a081308ce4522820250b52717819ad9a6cea2352bc73be8138b8a1b463001699a9_1280.jpg"
-            alt="123"
-          />
+          <img src={activeImage.largeImageURL} alt={activeImage.tag} />
         </div>
         <button
           type="button"
