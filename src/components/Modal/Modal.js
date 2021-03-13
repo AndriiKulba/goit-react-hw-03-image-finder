@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import s from './Modal.module.css';
-import { v4 as uuidv4 } from 'uuid';
 
 class Modal extends Component {
   componentDidMount() {
@@ -22,10 +21,11 @@ class Modal extends Component {
   };
   render() {
     const { activeImage, toggleModal } = this.props;
+    const { url, tag } = activeImage;
     return (
-      <div className="Overlay" onClick={this.OnBackdropClick}>
-        <div className="Modal">
-          <img src={activeImage.largeImageURL} alt={activeImage.tag} />
+      <div className={s.Overlay} onClick={this.OnBackdropClick}>
+        <div className={s.Modal}>
+          <img src={url} alt={tag} />
         </div>
         <button
           type="button"
@@ -36,4 +36,9 @@ class Modal extends Component {
     );
   }
 }
+Modal.propTypes = {
+  url: PropTypes.string,
+  tag: PropTypes.string,
+  toggleModal: PropTypes.func.isRequired,
+};
 export default Modal;

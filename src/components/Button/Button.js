@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './Button.module.css';
-import { v4 as uuidv4 } from 'uuid';
 
-const Button = () => {
+const Button = ({ clickLoad }) => {
   return (
-    <button type="button" className={s.Button}>
+    <button type="button" className={s.Button} onClick={clickLoad}>
       Load more
     </button>
   );
+};
+Button.propTypes = {
+  clickLoad: PropTypes.func.isRequired,
 };
 export default Button;

@@ -8,17 +8,27 @@ const ImageGalleryItem = ({ Images, getLargeImg }) => {
     <>
       {Images.map(Image => {
         return (
-          <li key={Image.id} className="ImageGalleryItem">
+          <li key={Image.id} className={s.ImageGalleryItem}>
             <img
               src={Image.webformatURL}
-              alt={Image.tag}
-              className="ImageGalleryItem-image"
-              onClick={() => getLargeImg(Image)}
+              alt={Image.tags}
+              className={s.ImageGalleryItem__image}
+              onClick={() => getLargeImg(Image.largeImageURL, Image.tags)}
             />
           </li>
         );
       })}
     </>
   );
+};
+ImageGalleryItem.propTypes = {
+  Images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tag: PropTypes.string,
+    }),
+  ),
+  getLargeImg: PropTypes.func.isRequired,
 };
 export default ImageGalleryItem;
